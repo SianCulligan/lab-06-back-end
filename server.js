@@ -36,9 +36,42 @@ app.get('/location', (request, response) => {
     response.send(locationData);
   }
   catch(error){
-    errorHandler('So sorry, something went wrong.', request, response);
+    errorHandler('Not today, satan.', request, response);
   }
 })
+
+
+
+
+
+
+app.get('/weather', (request, response) => {
+  try{
+    const skyData = require('./data/darksky.json');
+    const city = request.query.data.city;
+
+    console.log('lat', request.query.data);
+    const weatherData = new Weather(city, skyData);
+    response.send(weatherData);
+  }
+  catch(error){
+    errorHandler('Not today, satan.', request, response);
+  }
+})
+
+function Weather (city, skyData){
+  this.lat = skyData[0].latitude;
+  this.lon = skyData[0].longitude;
+  this.search_query = city;
+  this.forecast = skyData[0].summary;
+  this.time = skyData[0].time;
+}
+
+
+
+
+
+
 
 
 

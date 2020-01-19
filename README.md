@@ -33,3 +33,6 @@ As a user, I want more info about a specified city.
 ## Credits and Collaborations
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 -->
+
+
+https://stackoverflow.com/questions/847185/convert-a-unix-timestamp-to-time-in-javascript

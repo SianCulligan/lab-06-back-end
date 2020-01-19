@@ -31,7 +31,6 @@ app.get('/location', (request, response) => {
   try{
     const geoData = require('./data/geo.json');
     const city = request.query.city;
-    console.log(request.query);
     const locationData = new Location(city, geoData);
     response.send(locationData);
   }
@@ -41,37 +40,27 @@ app.get('/location', (request, response) => {
 })
 
 
+function Weather (skyData) {
+  this.forecast = skyData.summary;
+  this.time = new Date(skyData.time * 1000).toDateString();
+  allWeather.push(this);
+}
 
-
-
+let allWeather=[];
 
 app.get('/weather', (request, response) => {
   try{
     const skyData = require('./data/darksky.json');
-    const city = request.query.data.city;
-
-    console.log('lat', request.query.data);
-    const weatherData = new Weather(city, skyData);
-    response.send(weatherData);
+    skyData.daily.data.forEach ((byDate) => {
+      new Weather(byDate);
+      console.log(allWeather);
+    });
+    response.send(allWeather);
   }
   catch(error){
     errorHandler('Not today, satan.', request, response);
   }
 })
-
-function Weather (city, skyData){
-  this.lat = skyData[0].latitude;
-  this.lon = skyData[0].longitude;
-  this.search_query = city;
-  this.forecast = skyData[0].summary;
-  this.time = skyData[0].time;
-}
-
-
-
-
-
-
 
 
 

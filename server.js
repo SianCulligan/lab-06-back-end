@@ -26,7 +26,6 @@ function errorHandler(error, request, response) {
   response.status(500).send(error);
 }
 
-
 app.get('/location', (request, response) => {
   try{
     const geoData = require('./data/geo.json');
@@ -38,7 +37,6 @@ app.get('/location', (request, response) => {
     errorHandler('Not today, satan.', request, response);
   }
 })
-
 
 function Weather (skyData) {
   this.forecast = skyData.summary;
